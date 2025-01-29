@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Manager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Document Manager</h1>
+        <p>Store and retrieve your documents with ease.</p>
+    </header>
+    <main>
+        <section class="upload-section glassmorphism">
+            <h2><i class="fas fa-upload"></i> Upload a Document</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <button type="submit">Upload <i class="fas fa-arrow-up"></i></button>
+            </form>
+        </section>
+        <section class="document-list glassmorphism">
+            <h2><i class="fas fa-folder-open"></i> Your Documents</h2>
+            <ul>
+                {% for document in documents %}
+                <li class="document-item">
+                    <span class="document-name">{{ document[1] }}</span>
+                    <span class="document-date">{{ document[2] }}</span>
+                    <a href="{{ url_for('download', filename=document[1]) }}" download class="download-btn">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
